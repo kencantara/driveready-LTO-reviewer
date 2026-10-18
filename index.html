@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1728" />
+  <meta name="description" content="DriveReady — prepare for your LTO driving test." />
+  <title>DriveReady | Sign in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="DriveReady home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="img" aria-label=""><path d="M11 28 18 9h7l7 19h-6l-1.6-4.4h-6.8L16 28h-5Z" fill="currentColor"/><path d="M18 19h6" stroke="#0b1728" stroke-width="2" stroke-linecap="round"/><path d="M8 32h24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-name">Drive<span>Ready</span><small>LTO REVIEWER</small></span>
+      </a>
+      <span class="top-note"><span class="online-dot"></span> Your journey starts here</span>
+    </header>
+
+    <section class="main-grid">
+      <aside class="welcome-panel">
+        <span class="eyebrow"><span class="eyebrow-line"></span> LEARN. PRACTICE. DRIVE.</span>
+        <h1>Feel ready<br />for the <span>road ahead.</span></h1>
+        <p class="welcome-copy">Build your driving knowledge one question at a time. Your next step toward safer, more confident driving starts here.</p>
+
+        <div class="road-illustration" aria-hidden="true">
+          <div class="sun-glow"></div>
+          <div class="horizon h1"></div><div class="horizon h2"></div>
+          <div class="road-edge edge-left"></div><div class="road-edge edge-right"></div>
+          <div class="road-surface"></div>
+          <div class="road-dash dash-one"></div><div class="road-dash dash-two"></div><div class="road-dash dash-three"></div>
+          <div class="sign-post"><div class="sign-board"><span>!</span></div><div class="sign-stem"></div></div>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature"><span class="feature-icon">✓</span><span><strong>Practice at your own pace</strong><small>Learn a little every day</small></span></div>
+          <div class="feature"><span class="feature-icon">↗</span><span><strong>Build road awareness</strong><small>Prepare for real-world driving</small></span></div>
+        </div>
+        <p class="disclaimer">Study tool for learners. Always follow official LTO guidance and road-safety rules.</p>
+      </aside>
+
+      <section class="auth-area" aria-label="Account access">
+        <div class="auth-card">
+          <div class="mobile-brand">
+            <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M11 28 18 9h7l7 19h-6l-1.6-4.4h-6.8L16 28h-5Z" fill="currentColor"/><path d="M8 32h24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span>
+            <span class="brand-name">Drive<span>Ready</span><small>LTO REVIEWER</small></span>
+          </div>
+
+          <div class="card-heading">
+            <p class="mini-eyebrow" id="formEyebrow">WELCOME BACK</p>
+            <h2 id="formTitle">Good to see you.</h2>
+            <p id="formSubtitle">Sign in to continue your learning journey.</p>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Account type">
+            <button class="tab active" id="loginTab" type="button" role="tab" aria-selected="true">Sign in</button>
+            <button class="tab" id="registerTab" type="button" role="tab" aria-selected="false">Create account</button>
+            <span class="tab-indicator" id="tabIndicator"></span>
+          </div>
+
+          <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+          <form id="authForm" novalidate>
+            <label class="field-label" for="email">Email address</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m5 7 7 5.5L19 7"/></svg>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="password-label-row">
+              <label class="field-label" for="password">Password</label>
+              <button class="text-button" id="forgotButton" type="button">Forgot password?</button>
+            </div>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10" width="15" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v2"/></svg>
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" minlength="6" required />
+              <button class="show-password" id="togglePassword" type="button" aria-label="Show password" title="Show password">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.3-6 9.5-6 9.5 6 9.5 6-3.3 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.7"/></svg>
+              </button>
+            </div>
+            <p class="password-hint" id="passwordHint" hidden>Use at least 6 characters.</p>
+
+            <button class="submit-button" id="submitButton" type="submit">
+              <span id="submitLabel">Sign in to DriveReady</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+
+          <div class="separator"><span></span><p>YOUR NEXT CHAPTER STARTS HERE</p><span></span></div>
+          <p class="switch-prompt" id="switchPrompt">New to DriveReady? <button type="button" class="inline-link" id="switchMode">Create an account</button></p>
+          <p class="terms">By continuing, you agree to use DriveReady responsibly and follow safe-driving guidance.</p>
+        </div>
+        <footer class="auth-footer"><span>© <span id="year"></span> DriveReady</span><span><span class="footer-dot"></span> Learning for safer roads</span></footer>
+      </section>
+        </section>
+
+    <!-- DriveReady Dashboard -->
+    <section id="dashboard" class="dashboard" hidden>
+      <header class="dashboard-header">
+        <a class="brand" href="#" aria-label="DriveReady Dashboard">
+          <span class="brand-name">Drive<span>Ready</span></span>
+        </a>
+        <button id="logoutButton" type="button" class="submit-button">
+          Log out
+        </button>
+      </header>
+
+      <div class="dashboard-welcome">
+        <p class="mini-eyebrow">YOUR LEARNING JOURNEY</p>
+        <h1>Welcome to DriveReady!</h1>
+        <p>Learn the rules of the road. Practice your knowledge. Get ready for your LTO exam.</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <button type="button" class="dashboard-card" data-page="reviewer">
+          <span class="dashboard-icon">📚</span>
+          <h2>LTO Reviewer</h2>
+          <p>Study driving lessons and road signs.</p>
+          <span>Start learning →</span>
+        </button>
+
+        <button type="button" class="dashboard-card" data-page="quiz">
+          <span class="dashboard-icon">📝</span>
+          <h2>Quiz & Mock Exam</h2>
+          <p>Answer practice questions and check your score.</p>
+          <span>Take a quiz →</span>
+        </button>
+
+        <button type="button" class="dashboard-card" data-page="videos">
+          <span class="dashboard-icon">▶️</span>
+          <h2>Video Lessons</h2>
+          <p>Watch driving and traffic-rule lessons.</p>
+          <span>Watch videos →</span>
+        </button>
+
+        <button type="button" class="dashboard-card" data-page="progress">
+          <span class="dashboard-icon">📊</span>
+          <h2>My Progress</h2>
+          <p>Review your learning and quiz results.</p>
+          <span>View progress →</span>
+        </button>
+      </div>
+
+      <div id="dashboardContent" class="dashboard-content" hidden>
+        <button type="button" id="backToDashboard" class="text-button">
+          ← Back to Dashboard
+        </button>
+        <h2 id="dashboardContentTitle"></h2>
+        <p id="dashboardContentDescription"></p>
+      </div>
+
+      <footer class="auth-footer">
+        <span>© <span id="dashboardYear"></span> DriveReady</span>
+        <span>Learning for safer roads</span>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
