@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0b1728" />
   <meta name="description" content="DriveReady — prepare for your LTO driving test." />
   <title>DriveReady | Sign in</title>
@@ -13,7 +13,16 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-state="boot">
+
+  <!-- Loader: shown while checking the session (boot) and after a confirmed login (loading) -->
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <div class="loader-logo">Drive<span>Ready</span></div>
+    <div class="loader-ring" aria-hidden="true"></div>
+    <p class="loader-text" id="loaderText">Checking your session…</p>
+    <div class="loader-bar" aria-hidden="true"><span></span></div>
+  </div>
+
   <main class="page-shell">
     <div class="ambient ambient-one" aria-hidden="true"></div>
     <div class="ambient ambient-two" aria-hidden="true"></div>
@@ -28,6 +37,7 @@
       <span class="top-note"><span class="online-dot"></span> Your journey starts here</span>
     </header>
 
+    <!-- ===== LOGIN (unchanged) ===== -->
     <section class="main-grid">
       <aside class="welcome-panel">
         <span class="eyebrow"><span class="eyebrow-line"></span> LEARN. PRACTICE. DRIVE.</span>
@@ -103,68 +113,104 @@
         </div>
         <footer class="auth-footer"><span>© <span id="year"></span> DriveReady</span><span><span class="footer-dot"></span> Learning for safer roads</span></footer>
       </section>
-        </section>
+    </section>
+    <!-- ===== END LOGIN ===== -->
 
-    <!-- DriveReady Dashboard -->
-    <section id="dashboard" class="dashboard" hidden>
-      <header class="dashboard-header">
-        <a class="brand" href="#" aria-label="DriveReady Dashboard">
-          <span class="brand-name">Drive<span>Ready</span></span>
-        </a>
-        <button id="logoutButton" type="button" class="submit-button">
-          Log out
-        </button>
+    <!-- ===== DASHBOARD (a separate sibling of the login area) ===== -->
+    <section id="dashboard" class="dashboard">
+      <div class="app-bg" aria-hidden="true">
+        <div class="glow g1"></div>
+        <div class="glow g2"></div>
+        <div class="grid-layer"></div>
+      </div>
+
+      <header class="app-header">
+        <button type="button" class="app-brand" data-view="home" aria-label="DriveReady home">Drive<span>Ready</span></button>
+        <nav class="app-nav" aria-label="Main">
+          <button type="button" class="nav-item" data-view="home">Home</button>
+          <button type="button" class="nav-item" data-view="reviewer">Reviewer</button>
+          <button type="button" class="nav-item" data-view="signs">Road Signs</button>
+          <button type="button" class="nav-item" data-view="quiz">Mock Test</button>
+          <button type="button" class="nav-item" data-view="videos">Videos</button>
+          <button type="button" class="nav-item" data-view="progress">Progress</button>
+        </nav>
+        <button id="logoutButton" type="button" class="logout-btn">Log out</button>
       </header>
 
-      <div class="dashboard-welcome">
-        <p class="mini-eyebrow">YOUR LEARNING JOURNEY</p>
-        <h1>Welcome to DriveReady!</h1>
-        <p>Learn the rules of the road. Practice your knowledge. Get ready for your LTO exam.</p>
-      </div>
+      <div class="app-main">
 
-      <div class="dashboard-grid">
-        <button type="button" class="dashboard-card" data-page="reviewer">
-          <span class="dashboard-icon">📚</span>
+        <!-- HOME -->
+        <section class="view" data-view-panel="home">
+          <div class="hero">
+            <p class="eyebrow-c">YOUR LEARNING JOURNEY</p>
+            <h1>Welcome to <span>DriveReady</span></h1>
+            <p class="sub" id="welcomeUser">Learn the rules of the road. Practice your knowledge. Get ready for your LTO exam.</p>
+          </div>
+          <div class="cards">
+            <div class="card-wrap reveal"><button type="button" class="card3d" data-view="reviewer"><span class="c-icon">📚</span><h3>LTO Reviewer</h3><p>Study topics one at a time.</p><span class="c-go">Start learning →</span></button></div>
+            <div class="card-wrap reveal"><button type="button" class="card3d" data-view="signs"><span class="c-icon">🚸</span><h3>Road Signs</h3><p>Browse signs by category.</p><span class="c-go">Study signs →</span></button></div>
+            <div class="card-wrap reveal"><button type="button" class="card3d" data-view="quiz"><span class="c-icon">📝</span><h3>Mock Test</h3><p>Answer practice questions and see your score.</p><span class="c-go">Take a test →</span></button></div>
+            <div class="card-wrap reveal"><button type="button" class="card3d" data-view="videos"><span class="c-icon">▶️</span><h3>Video Lessons</h3><p>Watch driving and traffic-rule lessons.</p><span class="c-go">Watch videos →</span></button></div>
+            <div class="card-wrap reveal"><button type="button" class="card3d" data-view="progress"><span class="c-icon">📊</span><h3>My Progress</h3><p>Review your tests and study progress.</p><span class="c-go">View progress →</span></button></div>
+          </div>
+        </section>
+
+        <!-- REVIEWER -->
+        <section class="view" data-view-panel="reviewer" hidden>
+          <button type="button" class="back-btn" data-view="home">← Dashboard</button>
           <h2>LTO Reviewer</h2>
-          <p>Study driving lessons and road signs.</p>
-          <span>Start learning →</span>
-        </button>
+          <p class="sub">Pick a topic to read. Topics you open are counted in My Progress.</p>
+          <div id="reviewerBody"></div>
+        </section>
 
-        <button type="button" class="dashboard-card" data-page="quiz">
-          <span class="dashboard-icon">📝</span>
-          <h2>Quiz & Mock Exam</h2>
-          <p>Answer practice questions and check your score.</p>
-          <span>Take a quiz →</span>
-        </button>
+        <!-- ROAD SIGNS -->
+        <section class="view" data-view-panel="signs" hidden>
+          <button type="button" class="back-btn" data-view="home">← Dashboard</button>
+          <h2>Road Signs</h2>
+          <p class="sub">Tap a sign to see its name, meaning, and explanation.</p>
+          <div id="signsBody"></div>
+        </section>
 
-        <button type="button" class="dashboard-card" data-page="videos">
-          <span class="dashboard-icon">▶️</span>
+        <!-- MOCK TEST -->
+        <section class="view" data-view-panel="quiz" hidden>
+          <button type="button" class="back-btn" data-view="home">← Dashboard</button>
+          <h2>Mock Test</h2>
+          <p class="sub">Choose an answer for each question. You will see if it is correct right away.</p>
+          <div id="quizBody"></div>
+        </section>
+
+        <!-- VIDEOS -->
+        <section class="view" data-view-panel="videos" hidden>
+          <button type="button" class="back-btn" data-view="home">← Dashboard</button>
           <h2>Video Lessons</h2>
-          <p>Watch driving and traffic-rule lessons.</p>
-          <span>Watch videos →</span>
-        </button>
+          <p class="sub">Your recorded lessons will appear here.</p>
+          <div id="videoBody"></div>
+        </section>
 
-        <button type="button" class="dashboard-card" data-page="progress">
-          <span class="dashboard-icon">📊</span>
+        <!-- PROGRESS -->
+        <section class="view" data-view-panel="progress" hidden>
+          <button type="button" class="back-btn" data-view="home">← Dashboard</button>
           <h2>My Progress</h2>
-          <p>Review your learning and quiz results.</p>
-          <span>View progress →</span>
-        </button>
+          <p class="sub">Only your real activity is shown here.</p>
+          <div id="progressBody"></div>
+        </section>
+
       </div>
 
-      <div id="dashboardContent" class="dashboard-content" hidden>
-        <button type="button" id="backToDashboard" class="text-button">
-          ← Back to Dashboard
-        </button>
-        <h2 id="dashboardContentTitle"></h2>
-        <p id="dashboardContentDescription"></p>
-      </div>
+      <footer class="app-foot">© <span id="dashboardYear"></span> DriveReady · Learning for safer roads</footer>
 
-      <footer class="auth-footer">
-        <span>© <span id="dashboardYear"></span> DriveReady</span>
-        <span>Learning for safer roads</span>
-      </footer>
+      <!-- Mobile bottom navigation -->
+      <nav class="tabbar" aria-label="Main">
+        <button type="button" class="nav-item" data-view="home"><span>🏠</span>Home</button>
+        <button type="button" class="nav-item" data-view="reviewer"><span>📚</span>Review</button>
+        <button type="button" class="nav-item" data-view="signs"><span>🚸</span>Signs</button>
+        <button type="button" class="nav-item" data-view="quiz"><span>📝</span>Test</button>
+        <button type="button" class="nav-item" data-view="videos"><span>▶️</span>Videos</button>
+        <button type="button" class="nav-item" data-view="progress"><span>📊</span>Progress</button>
+      </nav>
     </section>
+    <!-- ===== END DASHBOARD ===== -->
+
   </main>
 </body>
 </html>
